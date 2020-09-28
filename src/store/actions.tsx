@@ -1,20 +1,17 @@
 import { Action } from "redux";
+import { TTodo, TTodoIndex } from "../types/todo";
 
-export interface IAddTodoAction extends Action {
-  todo: string | "";
+export interface ITodoWithAction extends Action {
+  todo: TTodo;
 }
 
-export interface IDeleteOrEditTodoAction extends Action {
-  todoIndex: number;
+export interface ITodoIndexWithAction extends Action {
+  todoIndex: TTodoIndex;
 }
 
-export interface ISaveTodoAction {
-  todoIndex: number;
-  updatedText: string;
-}
-
-export interface IMultiPropAction extends Action {
-  payload: ISaveTodoAction;
+export interface ITodoWithIndexWithAction extends Action {
+  todo: TTodo;
+  todoIndex: TTodoIndex;
 }
 
 export const ADD_TODO = "Add to to do list";
@@ -22,14 +19,14 @@ export const DELETE_TODO = "Delete to do from list";
 export const SWITCH_DISPLAY_MODE = "Switch to edit-form for to do";
 export const SAVE_TODO = "Update to do in list";
 
-export function addTodoAction(todo: string): IAddTodoAction {
+export function addTodoAction(todo: TTodo): ITodoWithAction {
   return {
     type: ADD_TODO,
     todo,
   };
 }
 
-export function deleteTodoAction(todoIndex: number): IDeleteOrEditTodoAction {
+export function deleteTodoAction(todoIndex: number): ITodoIndexWithAction {
   return {
     type: DELETE_TODO,
     todoIndex,
@@ -38,16 +35,20 @@ export function deleteTodoAction(todoIndex: number): IDeleteOrEditTodoAction {
 
 export function switchDisplayModeAction(
   todoIndex: number
-): IDeleteOrEditTodoAction {
+): ITodoIndexWithAction {
   return {
     type: SWITCH_DISPLAY_MODE,
     todoIndex,
   };
 }
 
-export function saveTodoAction(payload: any): IMultiPropAction {
+export function saveTodoAction(
+  todo: TTodo,
+  todoIndex: TTodoIndex
+): ITodoWithIndexWithAction {
   return {
     type: SAVE_TODO,
-    payload,
+    todo,
+    todoIndex,
   };
 }

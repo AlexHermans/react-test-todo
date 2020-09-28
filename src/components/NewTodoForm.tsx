@@ -2,6 +2,7 @@ import React, { SyntheticEvent, useRef, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { addTodoAction } from "../store/actions";
+import { TTodo } from "../types/todo";
 
 export function NewTodoForm() {
   const inputRef = useRef<HTMLInputElement>(null); // (null) means initialise with null as default value
@@ -10,7 +11,13 @@ export function NewTodoForm() {
   const dispatch = useDispatch();
 
   function onAddTodo() {
-    dispatch(addTodoAction(inputRef?.current?.value || ""));
+    const newTodo: TTodo = {
+      text: inputRef?.current?.value || "",
+      editMode: false,
+      isDone: false,
+    };
+
+    dispatch(addTodoAction(newTodo));
     setInput("");
   }
 

@@ -5,9 +5,7 @@ import { RootState } from "../store";
 import { Todo } from "./Todo";
 
 export function TodoList() {
-  const todos: string[] = useSelector((state: RootState) => state.todos.list);
-
-  console.log(todos);
+  const todos = useSelector((state: RootState) => state.todos);
 
   return (
     <>
